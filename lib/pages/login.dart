@@ -1,3 +1,5 @@
+import 'package:daily/main.dart';
+import 'package:daily/pages/home.dart';
 import 'package:daily/pages/signup.dart';
 import 'package:daily/pages/todo.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: const MyStatefulWidget(),
+        body: MyStatefulWidget(),
       ),
     );
   }
@@ -36,23 +38,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(10),
+    return Container(
+        padding: const EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
+            Image.asset("assets/images/california.jpg"),
+            const Center(
+                child: Text("DAILY APP",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,color: Colors.blue),)),
+            const SizedBox(height: 10,),
             Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
                 child: const Text(
                   'Log In',
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.red,
                       fontWeight: FontWeight.w500,
                       fontSize: 30),
                 )),
 
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
@@ -61,8 +66,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
+
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
@@ -72,29 +78,45 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
+            const SizedBox(height: 10,),
+
             TextButton(
               onPressed: () {
                 //forgot password screen
               },
-              child: const Text('Forgot Password',),
+              child: const Text('Forgot Password',style: TextStyle(fontSize: 16),),
             ),
-            Container(
-                height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  child: const Text('Login'),
-                  onPressed: () {
-                    Fluttertoast.showToast(
-                      msg: 'Logged in successfully.',
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Colors.grey,
-                      textColor: Colors.black,
-                      timeInSecForIosWeb: 1,
-                    );
-                  },
-                ),
+            const SizedBox(height: 10,),
+
+            FloatingActionButton.extended(
+              extendedPadding: const EdgeInsets.all(16),
+              onPressed: () {
+                setState(() {
+                  if(nameController.text.toString().isEmpty || passwordController.text.toString().isEmpty ){
+                  Fluttertoast.showToast(
+                    msg: 'none of the fields can be empty.',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.grey,
+                    textColor: Colors.black,
+                    timeInSecForIosWeb: 1,
+                  );
+                  }
+                  else{
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                  Fluttertoast.showToast(
+                    msg: 'Logged in successfully.',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.grey,
+                    textColor: Colors.black,
+                    timeInSecForIosWeb: 1,
+                  );
+                }
+                });
+              }, icon: const Icon(Icons.login), label: const Text("Login",style: TextStyle(fontSize: 24),),
             ),
+            const SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

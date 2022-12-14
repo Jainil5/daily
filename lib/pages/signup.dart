@@ -26,6 +26,10 @@ class _SignupState extends State<Signup> {
             padding: const EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
+                Image.asset("assets/images/california.jpg"),
+                const Center(
+                    child: Text("DAILY APP",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,color: Colors.blue),)),
+                const SizedBox(height: 10,),
                 Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(10),
@@ -36,6 +40,7 @@ class _SignupState extends State<Signup> {
                           fontWeight: FontWeight.w500,
                           fontSize: 30),
                     )),
+                const SizedBox(height: 10,),
 
                 Container(
                   padding: const EdgeInsets.all(10),
@@ -70,23 +75,42 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10,),
+
                 Container(
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text('Sign Up'),
+                    child: FloatingActionButton.extended(
+                      extendedPadding: const EdgeInsets.all(16),
                       onPressed: () {
-                        Fluttertoast.showToast(
-                            msg: 'Account created successfully.',
+                        if(nameController.text.toString().isEmpty || passwordController.text.toString().isEmpty || otpController.text.toString().isEmpty){
+                          Fluttertoast.showToast(
+                            msg: 'None of the fields can be empty.',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             backgroundColor: Colors.grey,
                             textColor: Colors.black,
                             timeInSecForIosWeb: 1,
-                        );
-                      },
-                    )
+                          );
+                        }
+                        else{
+                          Fluttertoast.showToast(
+                            msg: 'Account created',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.black,
+                            timeInSecForIosWeb: 1,
+                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+
+                        }
+
+                      }, icon: const Icon(Icons.login_rounded), label: const Text("Sign up",style: TextStyle(fontSize: 24),),
+                    ),
                 ),
+                const SizedBox(height: 10,),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
